@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+
+Sample space
+
+\begin{itemize}
+\item The $sample\ space\ \Omega$ is the space of all $basic\ outcomes$ (or sample points).
+\item It may either be $discrete$ or $continuous$.
+\end{itemize}
+
+
+Events
+
+\begin{itemize}
+\item An $event\ A$ is a subset of the sample space $\Omega$.
+\item $\Omega$ is the certain event, and $\emptyset$ the impossible event.
+\item An experimental outcome must be an event.
+\end{itemize}
+
+% @th
+\theoremstyle{definition}
+\newtheorem*{espac}{Events space}
+\begin{espac}
+The $event\ space\ \mathcal{F}$ is the set of all events on $\Omega$.
+\begin{itemize}
+\item It must form a $\sigma$-field ($\sigma$-algebra).
+\item This is trivially the case by making the event space the power set of the sample space (written $2^\mathcal{F}$).
+\end{itemize}
+\end{espac}
+
+\theoremstyle{definition}
+\newtheorem*{prob}{Probabilities}
+\begin{prob}
+A $probability$ is a number between 0 and 1. 0 indicates impossibility and 1 certainty.
+\end{prob}
+
+\theoremstyle{definition}
+\newtheorem*{pfunc}{Probability function}
+\begin{pfunc}
+	A $probability\ function$ is a function $P: \mathcal{F} \rightarrow [0,1]$ such that:
+	\begin{itemize}
+	\item $P(\Omega) = 1$
+	\item Countable additivity: For $disjoint$ sets $A_j \in \mathcal{F}$: 
+	\[
+	P(\bigcup_{j=1}^\infty A_j) = \sum_{j=1}^\infty P(A_j)
+	\]
+	\end{itemize}
+\end{pfunc}
+
+\theoremstyle{definition}
+\newtheorem*{pspac}{Probability space}
+\begin{pspac}
+	A well-founded $probability\ space\ (\Omega, \mathcal{F}, P)$ consists of:
+	\begin{itemize}
+	\item A sample space $\Omega$
+	\item A $\sigma$-field of events $\mathcal{F}$
+	\item A probability function $P$.
+	\end{itemize}
+\end{pspac}
+
+\theoremstyle{definition}
+\newtheorem*{cprob}{Conditional probability}
+\begin{cprob}
+\( P(A \cap B) = P(B)P(A|B) = P(A)P(B|A) \)
+\end{cprob}
+
+\theoremstyle{plain}
+\newtheorem*{gcprob}{Generalized conditional probabililties}
+\begin{gcprob}
+\[
+    P(A_1 \cap ... \cap A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1 \cap A_2)...P(A_n|\cap_{i=1}^{n-1}A_i)
+\]
+\end{gcprob}
+
+\theoremstyle{definition}
+\newtheorem*{indep}{Independence}
+\begin{indep}
+A and B are $independent$ if \( P(A \cap B) = P(A)P(B) \)
+\end{indep}
+
+\theoremstyle{definition}
+\newtheorem*{cindep}{Conditional independence}
+\begin{cindep}
+A and B are $conditionally\ independent$ given C when \( P(A \cap B|C) = P(A|C)P(B|C) \)
+\end{cindep}
+
+\theoremstyle{plain}
+\newtheorem*{bayes}{Bayes' theorem}
+\begin{bayes}
+If $P(A) > 0$:
+\[
+    P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A)}
+\]
+\end{bayes}
+
+\theoremstyle{plain}
+\newtheorem*{gbayes}{Generalized Bayes' theorem}
+\begin{gbayes}
+If $A \subseteq \cup_{i=1}^n B_i$, $P(A) > 0$ and $B_i \cap B_j = \emptyset$ for $i \neq j$:
+\[
+    P(B_j|A) = \frac{P(A|B_j)P(B_j)}{P(A)} = \frac{P(A|B_j)P(B_j)}{\sum_{i=1}^n P(A|B_i)P(B_i)}
+\]
+\end{gbayes}
+
+% @q What is a random variable ?
+A $random\ variable$ is a function \( X: \Omega \rightarrow \mathbb{R} \).
+
+% @q What is a discrete random variable ?
+A $discrete\ random\ variable$ is a function \( X: \Omega \rightarrow S \) where S is a countable subset of $\mathbb{R}$.
+
+% @q What is an indicator random variable ?
+A $indicator\ random\ variable$ (or Bernoulli trial) is a function \( X: \Omega \rightarrow \{0,1\} \).
+
+% @q What is a probabilty mass function ?
+The $probability\ mass\ function$ for a random variable X gives the probabilty that the random variable has particuliar numeric values:
+\[
+    p(x) = p(X=x) = P(A_x) \ where \ A = \{\omega \in \Omega : X(\omega) = x\}
+\]
+
+Expectation:
+
+
+The $expectation$ (noted $\mu$) is the mean or average of a random variable. If $X \sim p(x)$ such that $\sum_x |x|\ p(x) < \infty$:
+\[
+    E(X) = \sum_X x\ p(x)
+\]
+
+Expectation and function:
+
+
+If $Y \sim p(y)$ is a random variable, any function $g(Y): \mathbb{R} \rightarrow \mathbb{R}$ defines a new random variable. If $E(g(Y))$ is defined, then:
+\[
+    E(g(Y)) = \sum_Y g(y)\ p(y)
+\]
+
+
+
+
+Expectation properties:
+
+
+\begin{itemize}
+\item if $g(Y) = a Y + b$, then $E(g(Y)) = a E(Y) + b$
+\item $E(X + Y)  = E(X) + E(Y)$
+\item if $X$ and $Y$ are independent, then $E(X Y) = E(X) E(Y)$
+\end{itemize}
+
+
+
+
+Variance:
+
+
+The $variance$ (noted $\sigma^2$) measures whether the values of a random variable tend to be consistent or to vary a lot.
+\[
+    Var(X) = E((X - E(X))^2) = E(X^2) - E^2(X)
+\]
+
+
+
+
+Standard deviation:
+
+
+The $standard\ deviation$ (noted $\sigma$) of a variable is the square root of the variance (noted $\sigma^2$).
+
+
+
+
+Joint probability mass function:
+
+
+The $join\ probability\ mass\ function$ for two discrete random variables $X$, $Y$ is:
+\[
+    p(x,y) = P(X=x, Y=y)
+\]
+
+
+
+
+Marginal probability mass function:
+
+
+The $marginal\ probability\ mass\ function$ total up the probability masses for the values of each variable separatly:
+\[
+    p_X (x) = \sum_Y p(x,y) \;\;\;\;  p_Y (y) = \sum_X p(x,y)
+\]
+
+
+
+
+Conditional probability mass function:
+
+
+The $conditional\ probability\ mass\ function$ is defined as:
+\[
+    p_{X|Y}(x|y) = \frac{p(x,y)}{p_Y (y)} \ \ \ \text{for}\ y\ \text{such that}\ p_Y (y) > 0
+\]
+
+
+
+
+Chain rule (in terms of random variables):
+
+
+Example:
+\[
+    p(w,x,y,z) = p(w)\ p(x|w)\ p(y|w,x)\ p(z|w,x,y)
+\]
+
+
+
+
+Binomial distribution:
+
+
+The $binomial\ distribution$ gives the number $r$ of success out of $n$ trials given a probability of success $p$:
+\[
+    b(r; n,p) = \left( \begin{array}{@{}c@{}} n \\ r \end{array} \right) p^r (1-p)^{n-r} \ \ \ \text{where  } \left( \begin{array}{@{}c@{}} n \\ r \end{array} \right) = \frac{n!}{(n-r)!\ r!} \ , \ 0 \leq r \leq n
+\]
+
+
+
+
+Binomial distribution properties:
+
+
+The binomial distribution $b(r;n,p)$ has an expectation of $np$ and a variance of $np\:(1-p)$.
+
+
+\end{document}
