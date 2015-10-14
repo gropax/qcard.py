@@ -1,0 +1,9 @@
+setup.py
+bin/qcard
+qcard/__init__.py
+qcard/anki_card.py
+qcard.egg-info/PKG-INFO
+qcard.egg-info/SOURCES.txt
+qcard.egg-info/dependency_links.txt
+qcard.egg-info/not-zip-safe
+qcard.egg-info/top_level.txt

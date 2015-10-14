@@ -1,1 +1,41 @@
-../qcard
+import sys
+import re
+from argparse import ArgumentParser, FileType
+from qcard import read_theorem, AnkiCard
+
+parser = ArgumentParser(description="Generate Flashcards")
+parser.add_argument('infile', nargs='?', type=FileType('r'), default=sys.stdin)
+parser.add_argument('-o', '--outfile', nargs='?', type=FileType('w'),
+                    default='./.cards')
+
+inp = parser.add_mutually_exclusive_group(required=True)
+inp.add_argument('-l', '--latex', action="store_true")
+
+out = parser.add_mutually_exclusive_group(required=True)
+out.add_argument('-a', '--anki', action="store_true")
+
+args = parser.parse_args()
+
+
+cmd_re = re.compile("^\s*%\s+@(?P<cmd>th).*$")
+th_re = re.compile("\\newtheorem\*\{\w+\}\{(?P<title>)\}")
+
+
+deck = []
+
+line = args.infile.readline()
+while line:
+    m = cmd_re.match(line)
+    if m:
+        cmd = m.group('cmd')
+
+        if cmd == 'th':
+            fields = read_theorem(args.infile)
+            deck.append(AnkiCard(fields))
+
+    line = args.infile.readline()
+
+for c in deck:
+    args.outfile.write(c.generate(format='latex') + "\n\n")
+
+# vim: set filetype=python:

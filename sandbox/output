@@ -1,0 +1,84 @@
+[latex]Events space[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{espac}{Events space}
+\begin{espac}
+The $event\ space\ \mathcal{F}$ is the set of all events on $\Omega$.
+\begin{itemize}
+\item It must form a $\sigma$-field ($\sigma$-algebra).
+\item This is trivially the case by making the event space the power set of the sample space (written $2^\mathcal{F}$).
+\end{itemize}
+\end{espac}
+[/latex]"
+[latex]Probabilities[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{prob}{Probabilities}
+\begin{prob}
+A $probability$ is a number between 0 and 1. 0 indicates impossibility and 1 certainty.
+\end{prob}
+[/latex]"
+[latex]Probability function[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{pfunc}{Probability function}
+\begin{pfunc}
+	A $probability\ function$ is a function $P: \mathcal{F} \rightarrow [0,1]$ such that:
+	\begin{itemize}
+	\item $P(\Omega) = 1$
+	\item Countable additivity: For $disjoint$ sets $A_j \in \mathcal{F}$: 
+	\[
+	P(\bigcup_{j=1}^\infty A_j) = \sum_{j=1}^\infty P(A_j)
+	\]
+	\end{itemize}
+\end{pfunc}
+[/latex]"
+[latex]Probability space[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{pspac}{Probability space}
+\begin{pspac}
+	A well-founded $probability\ space\ (\Omega, \mathcal{F}, P)$ consists of:
+	\begin{itemize}
+	\item A sample space $\Omega$
+	\item A $\sigma$-field of events $\mathcal{F}$
+	\item A probability function $P$.
+	\end{itemize}
+\end{pspac}
+[/latex]"
+[latex]Conditional probability[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{cprob}{Conditional probability}
+\begin{cprob}
+\( P(A \cap B) = P(B)P(A|B) = P(A)P(B|A) \)
+\end{cprob}
+[/latex]"
+[latex]Generalized conditional probabililties[/latex]	"[latex]\theoremstyle{plain}
+\newtheorem*{gcprob}{Generalized conditional probabililties}
+\begin{gcprob}
+\[
+    P(A_1 \cap ... \cap A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1 \cap A_2)...P(A_n|\cap_{i=1}^{n-1}A_i)
+\]
+\end{gcprob}
+[/latex]"
+[latex]Independence[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{indep}{Independence}
+\begin{indep}
+A and B are $independent$ if \( P(A \cap B) = P(A)P(B) \)
+\end{indep}
+[/latex]"
+[latex]Conditional independence[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{cindep}{Conditional independence}
+\begin{cindep}
+A and B are $conditionally\ independent$ given C when \( P(A \cap B|C) = P(A|C)P(B|C) \)
+\end{cindep}
+[/latex]"
+[latex]Bayes' theorem[/latex]	"[latex]\theoremstyle{plain}
+\newtheorem*{bayes}{Bayes' theorem}
+\begin{bayes}
+If $P(A) > 0$:
+\[
+    P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(A|B)P(B)}{P(A)}
+\]
+\end{bayes}
+[/latex]"
+[latex]Generalized Bayes' theorem[/latex]	"[latex]\theoremstyle{plain}
+\newtheorem*{gbayes}{Generalized Bayes' theorem}
+\begin{gbayes}
+If $A \subseteq \cup_{i=1}^n B_i$, $P(A) > 0$ and $B_i \cap B_j = \emptyset$ for $i \neq j$:
+\[
+    P(B_j|A) = \frac{P(A|B_j)P(B_j)}{P(A)} = \frac{P(A|B_j)P(B_j)}{\sum_{i=1}^n P(A|B_i)P(B_i)}
+\]
+\end{gbayes}
+[/latex]"

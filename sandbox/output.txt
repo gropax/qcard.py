@@ -1,0 +1,10 @@
+[latex]Events space[/latex]	"[latex]\theoremstyle{definition}
+\newtheorem*{espac}{Events space}
+\begin{espac}
+The $event\ space\ \mathcal{F}$ is the set of all events on $\Omega$.
+\begin{itemize}
+\item It must form a $\sigma$-field ($\sigma$-algebra).
+\item This is trivially the case by making the event space the power set of the sample space (written $2^\mathcal{F}$).
+\end{itemize}
+\end{espac}
+[/latex]"
