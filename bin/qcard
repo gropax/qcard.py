@@ -1,7 +1,7 @@
 import sys
 import re
 from argparse import ArgumentParser, FileType
-from qcard import read_theorem, AnkiCard
+from qcard import *
 
 parser = ArgumentParser(description="Generate Flashcards")
 parser.add_argument('infile', nargs='?', type=FileType('r'), default=sys.stdin)
@@ -17,7 +17,7 @@ out.add_argument('-a', '--anki', action="store_true")
 args = parser.parse_args()
 
 
-cmd_re = re.compile("^\s*%\s+@(?P<cmd>th).*$")
+cmd_re = re.compile("^\s*%\s+@(?P<cmd>\w+).*$")
 th_re = re.compile("\\newtheorem\*\{\w+\}\{(?P<title>)\}")
 
 
@@ -31,7 +31,10 @@ while line:
 
         if cmd == 'th':
             fields = read_theorem(args.infile)
-            deck.append(AnkiCard(fields))
+        elif cmd == 'ctree':
+            fields = read_constituent_tree(args.infile)
+
+        deck.append(AnkiCard(fields))
 
     line = args.infile.readline()
 

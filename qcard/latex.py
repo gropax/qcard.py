@@ -25,3 +25,10 @@ def read_theorem(stream):
         raise Exception("Could not find theorem's title")
 
     return [title[0], "".join(blk)]
+
+
+def read_constituent_tree(stream):
+    blk = read_block(stream)
+    ans = " ".join(blk)
+    qst = " ".join(re.sub(r"\\Tree|\[|\]|\.\w+", "", ans).split())
+    return (qst, ans)
