@@ -7,6 +7,8 @@ parser = ArgumentParser(description="Generate Flashcards")
 parser.add_argument('infile', nargs='?', type=FileType('r'), default=sys.stdin)
 parser.add_argument('-o', '--outfile', nargs='?', type=FileType('w'),
                     default='./.cards')
+parser.add_argument('-t', '--tags', nargs='?', type=str,
+                    default='')
 
 inp = parser.add_mutually_exclusive_group(required=True)
 inp.add_argument('-l', '--latex', action="store_true")
@@ -38,6 +40,11 @@ while line:
 
     line = args.infile.readline()
 
+# Generate tags
+tags = " ".join(args.tags.split(','))
+if tags: args.outfile.write("tags:" + tags + "\n\n")
+
+# Generate cards
 for c in deck:
     args.outfile.write(c.generate(format='latex') + "\n\n")
 
