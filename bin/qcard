@@ -25,18 +25,23 @@ th_re = re.compile("\\newtheorem\*\{\w+\}\{(?P<title>)\}")
 
 deck = []
 
+TAG_PARSERS = {
+    'th': read_theorem,
+    'ctree': read_constituent_tree,
+    #'algo': read_algorithm,
+}
+
 line = args.infile.readline()
 while line:
     m = cmd_re.match(line)
     if m:
         cmd = m.group('cmd')
-
-        if cmd == 'th':
-            fields = read_theorem(args.infile)
-        elif cmd == 'ctree':
-            fields = read_constituent_tree(args.infile)
-
-        deck.append(AnkiCard(fields))
+        parser = TAG_PARSERS.get(cmd, None)
+        if parser:
+            fields = parser(args.infile)
+            deck.append(AnkiCard(fields))
+        else:
+            pass
 
     line = args.infile.readline()
 
