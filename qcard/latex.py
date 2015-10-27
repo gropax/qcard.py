@@ -1,6 +1,5 @@
 import re
-
-THEOREM_RE = re.compile(r"\\newtheorem\*?\{\w+\}\{(?P<title>.*)\}")
+import sys
 
 def read_block(stream, **opts):
     proc = opts.get('proc', lambda l: None)
@@ -11,6 +10,8 @@ def read_block(stream, **opts):
         blk.append(line)
         line = stream.readline()
     return blk
+
+THEOREM_RE = re.compile(r"\\newtheorem\*?\{\w+\}\{(?P<title>.*)\}")
 
 def read_theorem(stream):
     # @fixme Ugly
@@ -32,3 +33,21 @@ def read_constituent_tree(stream):
     ans = " ".join(blk)
     qst = " ".join(re.sub(r"\\Tree|\[|\]|\.\w+", "", ans).split())
     return (qst, ans)
+
+ALGO_RE = re.compile(r"\\caption\{(?P<caption>.*)\}")
+
+def read_algorithm(stream):
+    # @fixme Ugly
+    caption = []
+    def read_caption(line):
+        sys.stdout.write("line: %s" % line)
+        m = ALGO_RE.match(line)
+        sys.stdout.write("match: %i\n" % bool(m))
+        if m: caption.append(m.group('caption'))
+
+    blk = read_block(stream, proc=read_caption)
+
+    if not caption:
+        raise Exception("Could not find algorithm's caption")
+
+    return [caption[0], "".join(blk)]

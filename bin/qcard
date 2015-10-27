@@ -2,6 +2,7 @@ import sys
 import re
 from argparse import ArgumentParser, FileType
 from qcard import *
+import qcard.latex as latex
 
 parser = ArgumentParser(description="Generate Flashcards")
 parser.add_argument('infile', nargs='?', type=FileType('r'), default=sys.stdin)
@@ -26,24 +27,27 @@ th_re = re.compile("\\newtheorem\*\{\w+\}\{(?P<title>)\}")
 deck = []
 
 TAG_PARSERS = {
-    'th': read_theorem,
-    'ctree': read_constituent_tree,
-    #'algo': read_algorithm,
+    'th': latex.TheoremParser,
+    #'ctree': latex.,
+    'algo': latex.AlgorithmParser,
 }
 
-line = args.infile.readline()
+stream = enumerate(args.infile)
+
+i, line = next(stream)
 while line:
     m = cmd_re.match(line)
     if m:
         cmd = m.group('cmd')
         parser = TAG_PARSERS.get(cmd, None)
         if parser:
-            fields = parser(args.infile)
+            fields = parser(stream).parse()
             deck.append(AnkiCard(fields))
-        else:
-            pass
 
-    line = args.infile.readline()
+    try:
+        i, line = next(stream)
+    except StopIteration:
+        break
 
 # Generate tags
 tags = " ".join(args.tags.split(','))
